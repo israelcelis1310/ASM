@@ -3,8 +3,7 @@
 ;	https://ve.linkedin.com/in/israelceliscampagnoli
 ;	Practicas en Assembler Digitales III
 ;	Universidad Nacional Experimental "Antonio Jóse de Sucre"
-;	Vicerectorado "Luis Caballero Mejías"
-
+;	Vicerectorado "Luis Caballero Mejías"		
 		.Model Small
 		.Stack 100h
 		.Data
@@ -58,10 +57,20 @@ CONT4           DW 0000H
 CONT5           DW 0000H
 CONT6           DW 0000H
 CONT7           DW 0000H		
-MENS		DB 'Presione "M" para mostrar en forma decreciente y "m" para mostrar en forma creciente'		
+		
+		
 		.code
 		MOV AX,SEG TEXTO
 		MOV DS,AX			 ;ICC
+
+		CALL TECLA
+		CMP AL,'M'
+		JE DC
+DC:		CALL DECRE
+		CMP AL,'m'
+		JE CRE
+CRE:		CALL CRECE
+		MOV SI,OFFSET TEXTO
 
 		JMP INICIO
 I1:		INC SI
@@ -340,71 +349,22 @@ C7:		MOV AL,DS:[DI]
 		INC CONT7
 		RETN
 
-FIN:		xor ax,ax
-		xor bx,bx
-		xor cx,cx
-		xor dx,dx
-		mov dx,0000h
-		MOV BH,00H
-		CALL CURSOR
-		CALL BLK
-		MOV DX,OFFSET MENS
-		MOV CX,0055H
-		CALL IMPRIME
-		CALL TECLA
-		CMP AL,'m'
-		JE CRE
-CRE:		CALL CRECE
-		JMP FINAL
-
 TECLA:		MOV AH,00H
 		INT 16H
 		RETN
 		
-CRECE:		mov bh,00h
-		mov dx,0000h
-		call cursor
-		CALL BLK
-		MOV SI,OFFSET V01
-		CALL PRINT
-		CALL TECLA
-		CMP AL,1AH
-		JE continua
-		jmp crece
-CONTINUA:	RETN
-		
-PRINT:		MOV AL,DS:[SI]
-		MOV AH,0AH
-		MOV BL,07H		
-		MOV CX,0001H
-		INT 10H
-		INC SI
-		INC DX
-		CALL CUR
-		CMP AL,00H
-		JE SALIDA
-		JMP PRINT
-SALIDA:		RETN			
+CRECE:		MOV DX,OFFSET V01
+		CALL IMPRIME
+		RETN
+			
+DECRE:		MOV DX,OFFSET V07
+		CALL IMPRIME
+		RETN
 		
 IMPRIME:        MOV AH,09H
 		INT 21H
 		RETN
-
-BLK:		MOV AH,09H
-		MOV AL,20H
-		MOV BL,07H
-		MOV CX,2000H
-		INT 10
-		RETN
-
-CURSOR:		MOV AH,02H
-		INT 10H
-		RETN
-		
-CUR:		MOV AH,08H
-		INT 10
-		RETN
 				    		
-FINAL:		MOV AX,4C00H    
+FIN:		MOV AX,4C00H    
 		INT 21H
 		END

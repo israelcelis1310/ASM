@@ -3,7 +3,7 @@
 ;	https://ve.linkedin.com/in/israelceliscampagnoli
 ;	Practicas en Assembler Digitales III
 ;	Universidad Nacional Experimental "Antonio Jóse de Sucre"
-;	Vicerectorado "Luis Caballero Mejías"	
+;	Vicerectorado "Luis Caballero Mejías"
 		
 		.model small
 		.stack 100h
@@ -45,6 +45,8 @@ TUBERCULOSIS 	DB 1728 DUP(?)
 SARAMPION 	DB 1728 DUP(?)
 PALUDISMO 	DB 1728 DUP(?)
 	
+		
+			
 	  	.CODE
 		MOV AX,SEG MAESTRA
 		MOV DS,AX
@@ -125,6 +127,8 @@ S2P:		LOOP V1P
 		POP DI
 		INC DI
 		JMP L1
+
+
      ;**************** SUBRUTINAS *******************
 
 CLASIFICA:	PUSH CX
@@ -143,3 +147,6 @@ ERROR:	        MOV AX,4C01H
 FIN:		MOV AX,4C00H
 		INT 21H
 		END
+
+
+

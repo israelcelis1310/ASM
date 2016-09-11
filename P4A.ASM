@@ -3,8 +3,7 @@
 ;	https://ve.linkedin.com/in/israelceliscampagnoli
 ;	Practicas en Assembler Digitales III
 ;	Universidad Nacional Experimental "Antonio Jóse de Sucre"
-;	Vicerectorado "Luis Caballero Mejías"	
-
+;	Vicerectorado "Luis Caballero Mejías"
 		.Model Small
 		.Stack 100h
 		.Data
